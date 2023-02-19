@@ -46,12 +46,6 @@ export default {
       isLoading: false
     };
   },
-  // mounted() {
-  //   this.axios.get('/api/material')
-  //   .then(response => {
-  //     console.log(response)
-  //   })
-  // },
   methods: {
     login() {
       if ( this.password) {
@@ -90,29 +84,29 @@ export default {
                   this.$store.dispatch("login/login", data_login);
                   this.$buefy.toast.open({
                     duration: 1000,
-                    message: "Login Success",
+                    message: "Login Sukses",
                     type: "is-light",
                     position: "is-top"
                   });
                   this.$router.push("/");
-                  this.isLoading = false
+                } else {
+                  this.$buefy.toast.open({
+                    duration: 1000,
+                    message: "Akses ditolak",
+                    type: "is-danger",
+                    position: "is-top"
+                  });
                 }
+                this.isLoading = false;
               })
               .catch(e => {
-                this.$buefy.toast.open({
-                  duration: 1000,
-                  message: "Access denied",
-                  type: "is-danger",
-                  position: "is-top"
-                });
-                this.isLoading = false;
                 console.log(e);
               });
           })
           .catch(e => {
             this.$buefy.toast.open({
               duration: 1000,
-              message: "username/password incorrect",
+              message: "username/password salah",
               type: "is-danger",
               position: "is-top"
             });
