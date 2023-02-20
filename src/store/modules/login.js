@@ -30,7 +30,7 @@ const actions = {
     setToken(DATA_LOGIN.token)
     const user = Buffer.from(JSON.stringify(DATA_LOGIN.dataUser), "utf8").toString(
       "base64"
-    );
+    )
     setDataUser(user)
     commit(LOGIN)
   },

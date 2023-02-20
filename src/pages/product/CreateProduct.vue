@@ -14,7 +14,7 @@
               <b-field label="Upload Gambar">
                 <div v-if="imgSrc" class="upload-wrapper">
                   <img :src="imgSrc" alt="" class="image-preview">
-                  <b-button @click="removeFile()" type="is-light" class="delete-file">×</b-button>
+                  <a @click="removeFile()" type="is-primary" class="delete-file delete"></a>
                 </div>
                 <b-upload v-else class="image-preview" v-model="dropFiles" accept="image/png, image/jpeg" drag-drop
                   @input="imageUpload($event)">
@@ -51,6 +51,15 @@
                 </template>
                 <b-field label="Deskripsi">
                   <b-input required v-model="description" placeholder="Cth. 1 Daun Hidup + 1 Daun Mati" />
+                </b-field>
+                <b-field label="Kaca Mati"></b-field>
+                <b-field grouped>
+                  <b-field>
+                    <b-checkbox v-model="fixGlassTop">Kaca Mati Atas</b-checkbox>
+                </b-field>
+                  <b-field>
+                    <b-checkbox v-model="fixGlassBottom">Kaca Mati Bawah</b-checkbox>
+                </b-field>
                 </b-field>
               </form>
             </div>
@@ -122,6 +131,8 @@ export default {
       description: '',
       series: '',
       leaves: '',
+      fixGlassBottom: false,
+      fixGlassTop: false,
 
       glass: {
         name: 'Kaca',
@@ -164,6 +175,8 @@ export default {
         doorLeaves: this.leaves,
         description: this.description,
         material: this.material.value,
+        fixGlassBottom: this.fixGlassBottom,
+        fixGlassTop: this.fixGlassTop,
         imageUrl: this.imageUrl || ''
       }
       if ( data.type && data.series && data.doorLeaves && data.material.length )
@@ -223,6 +236,8 @@ export default {
           this.id = data.idProduct
           this.imgSrc = data.imageUrl
           this.description = data.description
+          this.fixGlassBottom = data.fixGlassBottom
+          this.fixGlassTop = data.fixGlassTop
           this.type = this.seriesData.find( el => el.type === data.type )
           if ( this.type )
           {
@@ -350,11 +365,13 @@ export default {
   width: 320px;
   max-height: 320px !important;
   height: 320px;
+  border-radius: 10px;
 }
 
 .delete-file {
   position: absolute;
-  right: 0;
+  right: 7px;
+  top: 7px;
 }
 
 .margin-top-6 {
