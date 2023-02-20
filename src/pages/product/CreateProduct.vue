@@ -12,9 +12,12 @@
           <div class="columns">
             <div class="column">
               <b-field label="Upload Gambar">
-                <div v-if="imgSrc" class="upload-wrapper">
-                  <img :src="imgSrc" alt="" class="image-preview">
-                  <a @click="removeFile()" type="is-primary" class="delete-file delete"></a>
+              </b-field>
+                <div v-if="imageUrl" class="upload-wrapper">
+                  <img :src="imageUrl" class="image-preview">
+                  <p class="delete-file is-overlay">
+                    <a @click="removeFile()" type="is-primary" class="delete"></a>
+                  </p>
                 </div>
                 <b-upload v-else class="image-preview" v-model="dropFiles" accept="image/png, image/jpeg" drag-drop
                   @input="imageUpload($event)">
@@ -28,7 +31,6 @@
                     </div>
                   </section>
                 </b-upload>
-              </b-field>
             </div>
             <div class="column is-7">
               <form>
@@ -126,7 +128,7 @@ export default {
 
       id: "",
       dropFiles: null,
-      imgSrc: "",
+      imageUrl: "",
       type: '',
       description: '',
       series: '',
@@ -234,7 +236,7 @@ export default {
         {
           let data = res.data
           this.id = data.idProduct
-          this.imgSrc = data.imageUrl
+          this.imageUrl = data.imageUrl
           this.description = data.description
           this.fixGlassBottom = data.fixGlassBottom
           this.fixGlassTop = data.fixGlassTop
@@ -304,11 +306,11 @@ export default {
 
     imageUpload ( event )
     {
-      this.imgSrc = URL.createObjectURL( event )
+      this.imageUrl = URL.createObjectURL( event )
     },
     removeFile ()
     {
-      this.imgSrc = null
+      this.imageUrl = null
       this.dropFiles = null
     },
     addMaterial ()
@@ -352,16 +354,16 @@ export default {
   }
 }
 </script>
-<style >
+<style scoped>
 .upload-wrapper {
-  position: relative;
+  display: block;
+  position: relative !important;
   width: 320px;
   max-height: 320px !important;
   height: 320px;
 }
 
 .image-preview {
-  position: relative;
   width: 320px;
   max-height: 320px !important;
   height: 320px;
@@ -369,8 +371,10 @@ export default {
 }
 
 .delete-file {
+  display: block;
   position: absolute;
-  right: 7px;
+  text-align: right;
+  padding-right: 7px;
   top: 7px;
 }
 
