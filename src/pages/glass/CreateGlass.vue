@@ -3,14 +3,9 @@
     <div class="flat-card">
       <div class="card-content">
         <p class="is-size-3 dynamic-title">
-          {{ id? 'Edit ':'Create new'}} Kaca
-          <b-button
-            class="is-pulled-right"
-            type="is-secondary"
-            rounded
-            :loading="isLoading"
-            @click="submitForm()"
-          >Save</b-button>
+          {{ id ? 'Edit ' : 'Create new' }} Kaca
+          <b-button class="is-pulled-right" type="is-secondary" rounded :loading="isLoading"
+            @click="submitForm()">Save</b-button>
         </p>
         <br />
         <div class="row">
@@ -32,8 +27,8 @@
             </div>
             <div class="column is-6 is-align-item-center is-justify-content-center has-text-centered">
               <img src="../../assets/imgs/GraphicInput.svg" alt />
-              <p class="is-size-7 has-text-grey">Tambahkan glass dan jumlah daun pintu <br>
-                yang bisa digunakan pada kategori ini</p>
+              <p class="is-size-7 has-text-grey">Harga setiap daerah berbeda
+                silahkan isi harga dengan benar</p>
             </div>
           </div>
         </div>
@@ -43,7 +38,8 @@
 </template>
 <script>
 export default {
-  data() {
+  data ()
+  {
     return {
       isLoading: false,
       location: [],
@@ -51,99 +47,118 @@ export default {
       name: "",
       description: "",
       price: []
-    };
+    }
   },
   methods: {
-    submitForm() {
-      let submit;
+    submitForm ()
+    {
+      let submit
       const price = {}
-      this.price.map(el => {
-        price[el.id] = Number(el.price)
-      })
+      this.price.map( el =>
+      {
+        price[ el.id ] = Number( el.price )
+      } )
       let data = {
         name: this.name,
         description: this.description,
         price: price
-      };
-      if (data.name && data.description) {
-        this.isLoading = true;
-        if (this.id) {
+      }
+      if ( data.name && data.description )
+      {
+        this.isLoading = true
+        if ( this.id )
+        {
           data.idGlass = this.id
-          submit = this.axios.put(`/api/glass`, data);
-        } else {
-          submit = this.axios.post( "/api/glass", data);
+          submit = this.axios.put( `/api/glass`, data )
+        } else
+        {
+          submit = this.axios.post( "/api/glass", data )
         }
         submit
-          .then(res => {
-            this.isLoading = false;
-            this.$router.back();
-            this.$buefy.toast.open({
+          .then( res =>
+          {
+            this.isLoading = false
+            this.$router.back()
+            this.$buefy.toast.open( {
               duration: 1000,
               message: "Success",
               type: "is-success",
               position: "is-top"
-            });
-          })
-          .catch(err => {
-            this.isLoading = false;
-            this.$buefy.toast.open({
+            } )
+          } )
+          .catch( err =>
+          {
+            this.isLoading = false
+            this.$buefy.toast.open( {
               duration: 1000,
               message: err.response.data.message,
               type: "is-danger",
               position: "is-top"
-            });
-          });
+            } )
+          } )
 
-      } else {
-        this.$buefy.toast.open("Data can't be null");
+      } else
+      {
+        this.$buefy.toast.open( "Data can't be null" )
       }
     },
-    getItemDetail() {
-      this.isLoading = true;
+    getItemDetail ()
+    {
+      this.isLoading = true
       this.axios
-        .get(`api/glass/${this.id}`)
-        .then(res => {
-          let data = res.data;
+        .get( `api/glass/${ this.id }` )
+        .then( res =>
+        {
+          let data = res.data
           this.name = data.name
           this.description = data.description
-          if(this.location.length) {
-            Object.keys(data.price).map(el => {
-              const idx = this.price.findIndex(item => item.name === el)
-              this.price[idx].price = data.price[el]
-            })
+          if ( this.location.length )
+          {
+            Object.keys( data.price ).map( el =>
+            {
+              const idx = this.price.findIndex( item => item.name === el )
+              this.price[ idx ].price = data.price[ el ]
+            } )
           }
-          this.isLoading = false;
-        })
-        .catch(err => {
-          this.isLoading = false;
-        });
+          this.isLoading = false
+        } )
+        .catch( err =>
+        {
+          this.isLoading = false
+        } )
     },
-    getLocation() {
-      this.isLoading = true;
+    getLocation ()
+    {
+      this.isLoading = true
       this.axios
-        .get(`api/location`)
-        .then(res => {
-          this.location = res.data;
-          this.location.map(el => {
-            this.price.push({
+        .get( `api/location` )
+        .then( res =>
+        {
+          this.location = res.data
+          this.location.map( el =>
+          {
+            this.price.push( {
               id: el.idLocation,
               name: el.location
-            })
-          })
-          this.isLoading = false;
-        })
-        .catch(err => {
-          this.isLoading = false;
-        });
+            } )
+          } )
+          this.isLoading = false
+        } )
+        .catch( err =>
+        {
+          this.isLoading = false
+        } )
     }
   },
-  created() {
-    let id = this.$route.params.id;
-    this.getLocation();
-    if (id) {
-      this.id = id;
-      this.getItemDetail();
+  created ()
+  {
+    let id = this.$route.params.id
+    this.getLocation()
+    if ( id )
+    {
+      this.id = id
+      this.getItemDetail()
     }
   }
-};
+}
 </script>

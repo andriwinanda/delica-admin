@@ -107,7 +107,7 @@
               </b-field>
             </form>
             <b-modal :active="isCardModalActive" @close="closeRumus()" :width="640" scroll="keep">
-              <input-rumus :idx="activeIdx" @rumus="setRumus($event)"></input-rumus>
+              <input-rumus :fixGlassBottom="fixGlassBottom" :fixGlassTop="fixGlassTop" :idx="activeIdx" @rumus="setRumus($event)"></input-rumus>
             </b-modal>
           </div>
         </div>
@@ -177,8 +177,8 @@ export default {
         doorLeaves: this.leaves,
         description: this.description,
         material: this.material.value,
-        fixGlassBottom: this.fixGlassBottom,
-        fixGlassTop: this.fixGlassTop,
+        fixGlassBottom: this.fixGlassBottom || false,
+        fixGlassTop: this.fixGlassTop || false,
         imageUrl: this.imageUrl || ''
       }
       if ( data.type && data.series && data.doorLeaves && data.material.length )

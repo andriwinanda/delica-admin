@@ -3,7 +3,7 @@
     <div class="flat-card">
       <div class="card-content">
         <p class="is-size-3 dynamic-title">
-          {{ id? 'Edit ': 'Create new' }} Akun
+          {{ id ? 'Edit ' : 'Create new' }} Akun
           <b-button class="is-pulled-right" type="is-secondary" rounded :loading="isLoading"
             @click="submitForm()">Save</b-button>
         </p>
@@ -20,20 +20,20 @@
                 </b-field>
                 <b-field label="Jenis akun">
                   <b-select v-model="role" placeholder="Pilih jenis akun" expanded>
-                      <option value="ROLE_ADMIN">Admin</option>
-                      <option value="ROLE_USER">Pengguna Biasa</option>
+                    <option value="ROLE_ADMIN">Admin</option>
+                    <option value="ROLE_USER">Pengguna Biasa</option>
                   </b-select>
                 </b-field>
                 <b-field label="Password" v-if="!id">
-                  <b-input required type="password" v-model="password" placeholder="Password" password-reveal/>
+                  <b-input required type="password" v-model="password" placeholder="Password" password-reveal />
                 </b-field>
 
               </form>
             </div>
             <div class="column is-6 is-align-item-center is-justify-content-center has-text-centered">
               <img src="../../assets/imgs/GraphicInput.svg" alt />
-              <p class="is-size-7 has-text-grey">Tambahkan user dan jumlah daun pintu <br>
-                yang bisa digunakan pada kategori ini</p>
+              <p class="is-size-7 has-text-grey">Jenis pengguna biasa tidak dapat
+                login sebagai admin</p>
             </div>
           </div>
         </div>
@@ -63,10 +63,11 @@ export default {
         name: this.name,
         role: this.role
       }
-      if ( data.email && data.name && data.role)
+      if ( data.email && data.name && data.role )
       {
         this.isLoading = true
-        if ( this.id ) {
+        if ( this.id )
+        {
           data.idUser = this.id
           submit = this.axios.put( `/api/user`, data )
         } else
@@ -106,13 +107,13 @@ export default {
     {
       this.isLoading = true
       this.axios
-        .get( `api/user/${this.id}`)
+        .get( `api/user/${ this.id }` )
         .then( res =>
         {
           let data = res.data
           this.email = data.email,
-          this.name = data.name,
-          this.role = data.role
+            this.name = data.name,
+            this.role = data.role
           this.isLoading = false
         } )
         .catch( err =>
@@ -127,7 +128,7 @@ export default {
     if ( id )
     {
       this.id = id
-      this.getItemDetail();
+      this.getItemDetail()
     }
   }
 }
