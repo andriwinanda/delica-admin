@@ -14,7 +14,7 @@
             <b-table-column label="Tipe">{{ props.row.type }}</b-table-column>
             <b-table-column label="Series">{{ props.row.series }}</b-table-column>
             <b-table-column label="Jumlah Daun">{{ props.row.doorLeaves }}</b-table-column>
-            <b-table-column label="Deskripsi">{{ props.row.description }}</b-table-column>
+            <b-table-column label="Deskripsi">{{ props.row.description || '-' }}</b-table-column>
             <b-table-column label="Action" centered style="min-width: 80px">
               <div class="buttons has-addons is-centered">
                 <b-button

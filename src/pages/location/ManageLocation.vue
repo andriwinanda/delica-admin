@@ -14,7 +14,7 @@
             <b-table-column label="Nama lokasi">{{ props.row.location }}</b-table-column>
 
             <b-table-column label="Deskripsi" class="is-capitalized">
-              {{ props.row.description }}
+              {{ props.row.description || '-' }}
             </b-table-column>
             <b-table-column label="Action" centered style="min-width: 80px">
               <div class="buttons has-addons is-centered">

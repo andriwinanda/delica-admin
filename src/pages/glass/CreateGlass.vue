@@ -16,10 +16,10 @@
                   <b-input required v-model="name" placeholder="Cth. Kusen" />
                 </b-field>
                 <b-field label="Deskripsi">
-                  <b-input required v-model="description" placeholder="Cth. Ini kusen" />
+                  <b-input v-model="description" placeholder="Cth. Ini kusen" />
                 </b-field>
 
-                <b-field v-for="(item, idx) in price" :key="idx" :label="`Harga ${item.name}`">
+                <b-field v-for="(item, idx) in price" :key="idx" :label="`Harga ${item.name}`" type="is-primary" message="Diisi tanpa titik (.) atau koma (,)">
                   <b-input required v-model="price[idx].price" type="number" placeholder="Cth. Ini kusen" />
                 </b-field>
 
@@ -63,7 +63,7 @@ export default {
         description: this.description,
         price: price
       }
-      if ( data.name && data.description )
+      if ( data.name )
       {
         this.isLoading = true
         if ( this.id )

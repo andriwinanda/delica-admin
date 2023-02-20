@@ -52,7 +52,7 @@
                   </b-field>
                 </template>
                 <b-field label="Deskripsi">
-                  <b-input required v-model="description" placeholder="Cth. 1 Daun Hidup + 1 Daun Mati" />
+                  <b-input v-model="description" placeholder="Cth. 1 Daun Hidup + 1 Daun Mati" />
                 </b-field>
                 <b-field label="Kaca Mati"></b-field>
                 <b-field grouped>
@@ -92,6 +92,16 @@
                     }}
                     </option>
                   </b-select>
+                  <!-- <b-autocomplete v-else
+                      v-model="material.value[idx].idMaterial"
+                      placeholder="Cth. Kusen"
+                      :open-on-focus="true"
+                      :data="material.options"
+                      field="name"
+                      @select="option => (material.value[idx].idMaterial = option.idMaterial)"
+                      :clearable="true"
+                  >
+                  </b-autocomplete> -->
                   <!-- <b-input required v-model="material.value[idx].name" readonly /> -->
                 </b-field>
                 <b-field label="Rumus" expanded>

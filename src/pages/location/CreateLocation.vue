@@ -16,7 +16,7 @@
                   <b-input required v-model="location" placeholder="Cth. Medan" />
                 </b-field>
                 <b-field label="Deskripsi">
-                  <b-input required v-model="description" placeholder="Cth. kota tercinta" />
+                  <b-input v-model="description" placeholder="Cth. kota tercinta" />
                 </b-field>
               </form>
             </div>

@@ -12,7 +12,7 @@
 
           <template slot-scope="props">
             <b-table-column label="Jenis Kaca">{{ props.row.name }}</b-table-column>
-            <b-table-column label="Deskripsi">{{ props.row.description }}</b-table-column>
+            <b-table-column label="Deskripsi">{{ props.row.description || '-' }}</b-table-column>
 
             <b-table-column label="Action" centered style="min-width: 80px">
               <div class="buttons has-addons is-centered">
