@@ -191,7 +191,7 @@ export default {
         fixGlassTop: this.fixGlassTop || false,
         imageUrl: this.imageUrl || ''
       }
-      if ( data.type && data.series && data.doorLeaves && data.material.length )
+      if ( data.type && data.series && data.material.length )
       {
         this.isLoading = true
         if ( this.dropFiles )
