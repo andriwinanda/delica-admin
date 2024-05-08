@@ -329,7 +329,7 @@ export default {
         formula: null,
       }
       this.material.value.push(value)
-    },
+    },  
     openRumus(idx) {
       this.isCardModalActive = true
       this.activeIdx = idx

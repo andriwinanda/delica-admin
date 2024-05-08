@@ -8,9 +8,9 @@
           </template>
 
           <template slot-scope="props">
-            <b-table-column label="Tipe">{{ props.row.type }}</b-table-column>
+            <b-table-column label="Tipe" sortable field="type">{{ props.row.type }}</b-table-column>
             <b-table-column label="Series" sortable field="series">{{ props.row.series }}</b-table-column>
-            <b-table-column label="Jumlah Daun">{{ props.row.doorLeaves }}</b-table-column>
+            <b-table-column label="Jumlah Daun" sortable field="doorLeaves">{{ props.row.doorLeaves }}</b-table-column>
             <b-table-column label="Deskripsi">{{ props.row.description || '-' }}</b-table-column>
             <b-table-column label="Action" centered style="min-width: 80px">
               <div class="buttons has-addons is-centered">
@@ -44,6 +44,12 @@ export default {
         .get(`api/product`)
         .then(res => {
           let data = res.data;
+          
+          data.sort((a, b) => {
+            if (a.series > b.series) { return -1; }
+            if (a.series < b.series) { return 1; }
+            return 0;
+          })
           this.listData = data;
           this.isLoading = false;
         })
