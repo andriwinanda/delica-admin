@@ -5,12 +5,9 @@
         <div class="has-text-right" style="padding-bottom: 10px;">
           <b-button type="is-primary" @click="$router.push('/material/massupdate')">Batch Update </b-button>
         </div>
-        <b-table class="material-table" :data="listData" :loading="isLoading" :hoverable="true" :sticky-header="true">
+        <b-table class="material-table" :data="listData" :hoverable="true" :sticky-header="true">
           <template slot="empty" v-if="!isLoading">
-            <p
-              class="dynamic-subtitle has-text-centered"
-              style="padding: 10px"
-            >No data available in table</p>
+            <p class="dynamic-subtitle has-text-centered" style="padding: 10px">No data available in table</p>
           </template>
 
           <template slot-scope="props">
@@ -19,30 +16,16 @@
 
             <b-table-column label="Action" centered style="min-width: 80px">
               <div class="buttons has-addons is-centered">
-                <b-button
-                  type="is-success"
-                  size="is-small"
-                  icon-left="pencil"
-                  @click="$router.push(`/material/edit/${props.row.idMaterial}`)"
-                ></b-button>
-                <b-button
-                  type="is-danger"
-                  size="is-small"
-                  icon-left="delete"
-                  @click="deleteItem(props.row.idMaterial)"
-                ></b-button>
+                <b-button type="is-success" size="is-small" icon-left="pencil"
+                  @click="$router.push(`/material/edit/${props.row.idMaterial}`)"></b-button>
+                <b-button type="is-danger" size="is-small" icon-left="delete"
+                  @click="deleteItem(props.row.idMaterial)"></b-button>
               </div>
             </b-table-column>
           </template>
         </b-table>
-        <b-button
-          class="floating-btn"
-          type="is-primary"
-          size="is-medium"
-          icon-right="plus"
-          @click="$router.push('/material/create')"
-          rounded
-        />
+        <b-button class="floating-btn" type="is-primary" size="is-medium" icon-right="plus"
+          @click="$router.push('/material/create')" rounded />
       </div>
     </div>
   </div>
@@ -92,9 +75,9 @@ export default {
             .catch(err => {
               this.isLoading = false;
               this.$buefy.toast.open({
-                    message: err.response.data.message || 'Error',
-                    type: 'is-danger'
-                });
+                message: err.response.data.message || 'Error',
+                type: 'is-danger'
+              });
             });
         }
       });
@@ -102,6 +85,6 @@ export default {
   },
   created() {
     this.getList();
-  }
+  },
 };
 </script>

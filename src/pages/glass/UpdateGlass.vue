@@ -2,7 +2,7 @@
   <div>
     <div class="flat-card">
       <div class="card-content">
-        <b-loading :is-full-page="true" v-model="isLoading" :can-cancel="false"></b-loading>
+        <b-loading :is-full-page="true" :active.sync="isLoading" :can-cancel="false"></b-loading>
         <div class="has-text-right" style="padding-bottom: 10px;">
           <b-button type="is-primary" @click="submitForm()">Save All</b-button>
         </div>
