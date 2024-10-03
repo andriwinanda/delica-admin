@@ -132,8 +132,8 @@ let routes = [
     component: CreateMaterial
   },
   {
-    path: '/material/massupdate',
-    meta: { title: 'Mass Update Material' },
+    path: '/material/batchupdate',
+    meta: { title: 'Batch Update Material' },
     component: UpdateMaterial
   },
   {
@@ -152,8 +152,8 @@ let routes = [
     component: CreateGlass
   },
   {
-    path: '/glass/massupdate',
-    meta: { title: 'Mass Update Glass' },
+    path: '/glass/batchupdate',
+    meta: { title: 'Batch Update Glass' },
     component: UpdateGlass
   },
 

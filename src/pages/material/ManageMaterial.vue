@@ -3,7 +3,7 @@
     <div class="flat-card">
       <div class="card-content">
         <div class="has-text-right" style="padding-bottom: 10px;">
-          <b-button type="is-primary" @click="$router.push('/material/massupdate')">Batch Update </b-button>
+          <b-button type="is-primary" @click="$router.push('/material/batchupdate')">Batch Update </b-button>
         </div>
         <b-table class="material-table" :data="listData" :hoverable="true" :sticky-header="true">
           <template slot="empty" v-if="!isLoading">
