@@ -2,7 +2,10 @@
   <div>
     <div class="flat-card">
       <div class="card-content">
-        <b-table :data="listData" :loading="isLoading" :hoverable="true" :sticky-header="true">
+        <div class="has-text-right" style="padding-bottom: 10px;">
+          <b-button type="is-primary" @click="$router.push('/glass/massupdate')">Batch Update </b-button>
+        </div>
+        <b-table class="material-table" :data="listData" :loading="isLoading" :hoverable="true" :sticky-header="true">
           <template slot="empty" v-if="!isLoading">
             <p
               class="dynamic-subtitle has-text-centered"

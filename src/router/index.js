@@ -15,8 +15,11 @@ import Account from '../pages/account/ManageAccount'
 import CreateAccount from '../pages/account/CreateAccount'
 import Material from '../pages/material/ManageMaterial'
 import CreateMaterial from '../pages/material/CreateMaterial'
+import UpdateMaterial from '../pages/material/UpdateMaterial'
 import Glass from '../pages/glass/ManageGlass'
 import CreateGlass from '../pages/glass/CreateGlass'
+import UpdateGlass from '../pages/glass/UpdateGlass'
+
 
 import store from '../store/store'
 
@@ -129,6 +132,11 @@ let routes = [
     component: CreateMaterial
   },
   {
+    path: '/material/massupdate',
+    meta: { title: 'Mass Update Material' },
+    component: UpdateMaterial
+  },
+  {
     path: '/glass',
     meta: { title: 'Glass' },
     component: Glass
@@ -142,7 +150,12 @@ let routes = [
     path: '/glass/create',
     meta: { title: 'Create Glass' },
     component: CreateGlass
-  }
+  },
+  {
+    path: '/glass/massupdate',
+    meta: { title: 'Mass Update Glass' },
+    component: UpdateGlass
+  },
 
 ]
 
