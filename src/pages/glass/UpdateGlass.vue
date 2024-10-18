@@ -9,15 +9,15 @@
         <div>
           <div v-for="item in listData" :key="item.id" class="columns">
             <b-field class="column" label="Nama Kaca">
-              <b-input required v-model="item.name" placeholder="Cth. Kusen" />
+              <b-input required v-model="item.name" disabled/>
             </b-field>
             <b-field class="column" label="Deskripsi">
-              <b-input v-model="item.description" placeholder="Cth. Ini kusen" />
+              <b-input v-model="item.description" disabled/>
             </b-field>
             <b-field class="column" v-for="(el, idx) in location" :key="idx" type="is-primary"
               message="Diisi tanpa titik (.) atau koma (,)">
               <template #label>
-                Harga <span class="is-capitalized">{{el.location}}</span>
+                Harga <span class="is-capitalized">{{ el.location }}</span>
               </template>
               <!-- <input required v-model="item.price[idx]" @keypress="numericChecker($event)"
                 placeholder="Cth. Ini kusen" /> -->
@@ -32,7 +32,7 @@
   </div>
 </template>
 <script>
-import { getToken } from "../../localstorage-helper";
+import { sortingByName } from "@/function-helper"
 export default {
   data() {
     return {
@@ -46,9 +46,9 @@ export default {
       this.isLoading = true;
       this.axios
         .get(`api/glass`)
-        .then(res => {
+        .then(async res => {
           let data = res.data;
-          this.listData = data;
+          this.listData = await sortingByName(data)
           this.isLoading = false;
         })
         .catch(err => {
@@ -105,7 +105,7 @@ export default {
       const data = []
       for (let i in listData) {
         const item = {
-          id: listData[i].idMaterial,
+          id: listData[i].idGlass,
           name: listData[i].name,
           description: listData[i].description,
           price: {}
@@ -154,27 +154,23 @@ export default {
 
 
     },
-    getLocation ()
-    {
+    getLocation() {
       this.isLoading = true
       this.axios
-        .get( `api/location` )
-        .then( res =>
-        {
+        .get(`api/location`)
+        .then(res => {
           this.location = res.data
-          this.location.map( el =>
-          {
-            this.price.push( {
+          this.location.map(el => {
+            this.price.push({
               id: el.idLocation,
               name: el.location
-            } )
-          } )
+            })
+          })
           this.isLoading = false
-        } )
-        .catch( err =>
-        {
+        })
+        .catch(err => {
           this.isLoading = false
-        } )
+        })
     }
   },
   created() {

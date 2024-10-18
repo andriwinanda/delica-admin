@@ -35,3 +35,14 @@ export function durationMil(milisecs) {
   // return pad(hours)+":"+pad(minutes)+":"+pad(secs); for old browsers
 }
 
+export async function sortingByName (data) {
+  data.sort((a, b) => {
+    const userA = a.name.toLowerCase(), userB = b.name.toLowerCase();
+    if (userA < userB) //sort string ascending
+      return -1;
+    if (userA > userB)
+      return 1;
+    return 0; //default return value (no sorting)
+  })
+  return data
+}

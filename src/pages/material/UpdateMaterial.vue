@@ -9,10 +9,10 @@
         <div>
           <div v-for="item in listData" :key="item.id" class="columns">
             <b-field class="column" label="Nama Material">
-              <b-input required v-model="item.name" placeholder="Cth. Kusen" />
+              <b-input required v-model="item.name" placeholder="Cth. Kusen" disabled/>
             </b-field>
             <b-field class="column" label="Deskripsi">
-              <b-input v-model="item.description" placeholder="Cth. Ini kusen" />
+              <b-input v-model="item.description" placeholder="Cth. Ini kusen" disabled/>
             </b-field>
             <b-field class="column" v-for="(el, idx) in location" :key="idx" type="is-primary"
               message="Diisi tanpa titik (.) atau koma (,)">
@@ -54,7 +54,7 @@
   </div>
 </template>
 <script>
-import { getToken } from "../../localstorage-helper";
+import { sortingByName } from "@/function-helper"
 export default {
   data() {
     return {
@@ -68,9 +68,9 @@ export default {
       this.isLoading = true;
       this.axios
         .get(`api/material`)
-        .then(res => {
+        .then(async res => {
           let data = res.data;
-          this.listData = data;
+          this.listData = await sortingByName(data)
           this.isLoading = false;
         })
         .catch(err => {
