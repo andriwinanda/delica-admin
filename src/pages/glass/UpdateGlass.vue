@@ -11,9 +11,9 @@
             <b-field class="column" label="Nama Kaca">
               <b-input required v-model="item.name" disabled/>
             </b-field>
-            <b-field class="column" label="Deskripsi">
+            <!-- <b-field class="column" label="Deskripsi">
               <b-input v-model="item.description" disabled/>
-            </b-field>
+            </b-field> -->
             <b-field class="column" v-for="(el, idx) in location" :key="idx" type="is-primary"
               message="Diisi tanpa titik (.) atau koma (,)">
               <template #label>

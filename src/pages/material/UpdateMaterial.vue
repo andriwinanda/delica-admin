@@ -3,17 +3,14 @@
     <div class="flat-card">
       <div class="card-content">
         <b-loading :is-full-page="true" :active.sync="isLoading" :can-cancel="false"></b-loading>
-        <div class="has-text-right" style="padding-bottom: 10px;">
-          <b-button type="is-primary" @click="submitForm()">Save All</b-button>
-        </div>
         <div>
           <div v-for="item in listData" :key="item.id" class="columns">
             <b-field class="column" label="Nama Material">
               <b-input required v-model="item.name" placeholder="Cth. Kusen" disabled/>
             </b-field>
-            <b-field class="column" label="Deskripsi">
+            <!-- <b-field class="column" label="Deskripsi">
               <b-input v-model="item.description" placeholder="Cth. Ini kusen" disabled/>
-            </b-field>
+            </b-field> -->
             <b-field class="column" v-for="(el, idx) in location" :key="idx" type="is-primary"
               message="Diisi tanpa titik (.) atau koma (,)">
               <template #label>
@@ -26,6 +23,9 @@
             </b-field>
           </div>
 
+        </div>
+        <div class="has-text-right" style="padding-top: 10px;">
+          <b-button type="is-primary" @click="submitForm()">Save All</b-button>
         </div>
         <!-- <b-table :data="listData" :loading="isLoading" :hoverable="true" :sticky-header="true">
           <template slot="empty" v-if="!isLoading">
