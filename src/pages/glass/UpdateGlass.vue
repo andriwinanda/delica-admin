@@ -14,7 +14,7 @@
             <!-- <b-field class="column" label="Deskripsi">
               <b-input v-model="item.description" disabled/>
             </b-field> -->
-            <b-field class="column" v-for="(el, idx) in location" :key="idx" type="is-primary"
+            <b-field style="width: 120px;" class="column" v-for="(el, idx) in location" :key="idx" type="is-primary"
               message="Diisi tanpa titik (.) atau koma (,)">
               <template #label>
                 Harga <span class="is-capitalized">{{ el.location }}</span>
