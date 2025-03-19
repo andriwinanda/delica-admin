@@ -16,6 +16,8 @@
               <div class="buttons has-addons is-centered">
                 <b-button type="is-success" size="is-small" icon-left="pencil"
                   @click="$router.push(`/product/edit/${props.row.idProduct}`)"></b-button>
+                <b-button type="is-info" size="is-small" icon-left="content-copy"
+                  @click="duplicateItem(props.row)"></b-button>
                 <b-button type="is-danger" size="is-small" icon-left="delete"
                   @click="deleteItem(props.row.idProduct)"></b-button>
               </div>
@@ -44,7 +46,7 @@ export default {
         .get(`api/product`)
         .then(res => {
           let data = res.data;
-          
+
           data.sort((a, b) => {
             if (a.series > b.series) { return -1; }
             if (a.series < b.series) { return 1; }
@@ -56,6 +58,42 @@ export default {
         .catch(err => {
           this.isLoading = false;
         });
+    },
+
+    duplicateItem(item) {
+      const img = item.imageUrl.split('/')
+      const data = {
+        type: item.type,
+        series: item.series,
+        doorLeaves: item.doorLeaves,
+        description: item.description + '-copy',
+        material: item.material,
+        fixGlassBottom: item.fixGlassBottom,
+        fixGlassTop: item.fixGlassTop,
+        imageUrl: img[img.length - 1]
+      }
+      this.axios.post("/api/product", data)
+        .then(res => {
+          this.isLoading = false
+          this.getList()
+          // this.$router.back()
+          this.$buefy.toast.open({
+            duration: 1000,
+            message: "Success",
+            type: "is-success",
+            position: "is-top"
+          })
+        })
+        .catch(err => {
+          this.isLoading = false
+          this.$buefy.toast.open({
+            duration: 1000,
+            message: err.response.data.message,
+            type: "is-danger",
+            position: "is-top"
+          })
+        })
+
     },
 
     deleteItem(id) {

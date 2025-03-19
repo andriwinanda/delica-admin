@@ -111,6 +111,9 @@
                 <b-field label="Rumus">
                   <b-button type="is-secondary" icon-right="calculator" @click="openRumus(idx)"></b-button>
                 </b-field>
+                <b-field label="Delete">
+                  <b-button type="is-secondary" icon-right="delete" @click="deleteMaterial(idx)" :disabled="material.value[idx].idMaterial === 'Kaca'"></b-button>
+                </b-field>
               </b-field>
               <b-field>
                 <b-button @click="addMaterial()" icon-left="plus">Tambah Material</b-button>
@@ -333,7 +336,11 @@ export default {
     openRumus(idx) {
       this.isCardModalActive = true
       this.activeIdx = idx
-
+    },
+    deleteMaterial(idx) {
+      if(idx <= 0) return
+      this.material.value.splice(idx, 1)
+      this.closeRumus()
     },
     closeRumus() {
       this.isCardModalActive = false
@@ -341,8 +348,6 @@ export default {
     },
     setRumus(event) {
       this.material.value[this.activeIdx].formula = event
-
-      console.log(this.material.value[this.activeIdx].formula)
       this.closeRumus()
     }
   },
