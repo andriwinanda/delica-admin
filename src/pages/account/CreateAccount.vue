@@ -24,6 +24,13 @@
                     <option value="ROLE_USER">Pengguna Biasa</option>
                   </b-select>
                 </b-field>
+                <b-field label="Jenis akun">
+                  <b-select v-model="location" placeholder="Pilih lokasi" expanded>
+                    <option value="jakarta">Jakarta</option>
+                    <option value="medan">Medan</option>
+                    <option value="surabaya">Surabaya</option>
+                  </b-select>
+                </b-field>
                 <b-field label="Password" v-if="!id">
                   <b-input required type="password" v-model="password" placeholder="Password" password-reveal />
                 </b-field>
@@ -43,89 +50,79 @@
 </template>
 <script>
 export default {
-  data ()
-  {
+  data() {
     return {
       isLoading: false,
       id: "",
       email: "",
       password: "",
       name: "",
-      role: "ROLE_USER"
+      role: "ROLE_USER",
+      location: "jakarta"
     }
   },
   methods: {
-    submitForm ()
-    {
+    submitForm() {
       let submit
       let data = {
         email: this.email,
         name: this.name,
-        role: this.role
+        role: this.role,
+        location: this.location
       }
-      if ( data.email && data.name && data.role )
-      {
+      if (data.email && data.name && data.role && data.location) {
         this.isLoading = true
-        if ( this.id )
-        {
-          submit = this.axios.put( `/api/user/${this.id}`, data )
-        } else
-        {
+        if (this.id) {
+          submit = this.axios.put(`/api/user/${this.id}`, data)
+        } else {
           data.password = this.password
-          submit = this.axios.post( "/api/user", data )
+          submit = this.axios.post("/api/user", data)
         }
         submit
-          .then( res =>
-          {
+          .then(res => {
             this.isLoading = false
             this.$router.back()
-            this.$buefy.toast.open( {
+            this.$buefy.toast.open({
               duration: 1000,
               message: "Success",
               type: "is-success",
               position: "is-top"
-            } )
-          } )
-          .catch( err =>
-          {
+            })
+          })
+          .catch(err => {
             this.isLoading = false
-            this.$buefy.toast.open( {
+            this.$buefy.toast.open({
               duration: 1000,
               message: err.response.data.message,
               type: "is-danger",
               position: "is-top"
-            } )
-          } )
+            })
+          })
 
-      } else
-      {
-        this.$buefy.toast.open( "Data can't be null" )
+      } else {
+        this.$buefy.toast.open("Data can't be null")
       }
     },
-    getItemDetail ()
-    {
+    getItemDetail() {
       this.isLoading = true
       this.axios
-        .get( `api/user/detail/${ this.id }` )
-        .then( res =>
-        {
+        .get(`api/user/detail/${this.id}`)
+        .then(res => {
           let data = res.data
           this.email = data.email,
             this.name = data.name,
-            this.role = data.role
+            this.role = data.role,
+            this.location = data.location
           this.isLoading = false
-        } )
-        .catch( err =>  
-        {
+        })
+        .catch(err => {
           this.isLoading = false
-        } )
+        })
     }
   },
-  created ()
-  {
+  created() {
     let id = this.$route.params.id
-    if ( id )
-    {
+    if (id) {
       this.id = id
       this.getItemDetail()
     }

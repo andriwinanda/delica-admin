@@ -70,7 +70,8 @@ export default {
         .get(`api/material`)
         .then(async res => {
           let data = res.data;
-          this.listData = await sortingByName(data)
+          // this.listData = await sortingByName(data)
+          this.listData = data
           this.isLoading = false;
         })
         .catch(err => {
@@ -153,7 +154,7 @@ export default {
         this.axios.post("/api/material/massupdate", data)
           .then(res => {
             this.isLoading = false
-            this.$router.back()
+            // this.$router.back()
             this.$buefy.toast.open({
               duration: 1000,
               message: "Success",
